@@ -17,8 +17,8 @@
    <widget class="QLabel" name="MainMenulabel">
     <property name="geometry">
      <rect>
-      <x>350</x>
-      <y>10</y>
+      <x>320</x>
+      <y>30</y>
       <width>161</width>
       <height>51</height>
      </rect>
@@ -35,8 +35,8 @@
    <widget class="QPushButton" name="SubwayButton">
     <property name="geometry">
      <rect>
-      <x>560</x>
-      <y>110</y>
+      <x>70</x>
+      <y>40</y>
       <width>80</width>
       <height>24</height>
      </rect>
@@ -48,8 +48,8 @@
    <widget class="QPushButton" name="TaxiButton">
     <property name="geometry">
      <rect>
-      <x>560</x>
-      <y>150</y>
+      <x>70</x>
+      <y>80</y>
       <width>80</width>
       <height>24</height>
      </rect>
@@ -61,15 +61,100 @@
    <widget class="QPushButton" name="BusButton">
     <property name="geometry">
      <rect>
-      <x>560</x>
-      <y>190</y>
+      <x>630</x>
+      <y>130</y>
       <width>80</width>
       <height>24</height>
      </rect>
     </property>
     <property name="text">
-     <string>Bus</string>
+     <string>Search</string>
     </property>
+   </widget>
+   <widget class="QLabel" name="MainMenulabel_2">
+    <property name="geometry">
+     <rect>
+      <x>330</x>
+      <y>100</y>
+      <width>161</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>18</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Display</string>
+    </property>
+   </widget>
+   <widget class="QListWidget" name="listWidget">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>160</y>
+      <width>751</width>
+      <height>261</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>580</x>
+      <y>0</y>
+      <width>172</width>
+      <height>110</height>
+     </rect>
+    </property>
+    <layout class="QFormLayout" name="formLayout">
+     <item row="0" column="0">
+      <widget class="QLabel" name="MainMenulabel_3">
+       <property name="font">
+        <font>
+         <pointsize>18</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>clock</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="ClocklineEdit"/>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="MainMenulabel_4">
+       <property name="font">
+        <font>
+         <pointsize>18</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Start </string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLineEdit" name="StartSatationlineEdit_2"/>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="MainMenulabel_5">
+       <property name="font">
+        <font>
+         <pointsize>18</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>End </string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QLineEdit" name="EndStationlineEdit_3"/>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

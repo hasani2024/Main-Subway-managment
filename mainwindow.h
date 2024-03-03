@@ -18,7 +18,9 @@ public:
 private slots:
     void on_SubwayButton_clicked();
 
-private:
+    void on_BusButton_clicked();
+
+    private:
     Ui::MainWindow *ui;
 };
 #endif // MAINWINDOW_H
