@@ -1,185 +1,3 @@
-//#include "mainwindow.h"
-//#include "subwaymanagement.h"
-//#include <QApplication>
-
-//int main(int argc, char *argv[])
-//{
-//    QApplication a(argc, argv);
-////    MainWindow w;
-////    w.show();
-
-//    Graph g;
-
-//    // Add edges
-//    g.addEdge("Gholhak", "Mirdamad",QColor(Qt::red));
-//    g.addEdge("Mirdamad", "Shahid Haghani",QColor(Qt::red));
-//    g.addEdge("Shahid Haghani","Shahid Beheshti",QColor(Qt::red));
-//    g.addEdge("Shahid Beheshti","Shahid Mofatteh",QColor(Qt::red));
-//    g.addEdge("Shahid Mofatteh","Haftom-e Tir",QColor(Qt::red));
-//    g.addEdge("Shahid Beheshti", "Merza-ye Shirazi",QColor(Qt::blue));
-//    g.addEdge("Merza-ye Shirazi", "Meydan-e Jahad",QColor(Qt::blue));
-
-
-//    QString start = "Gholhak";
-//    QString end = "Merza-ye Shirazi";
-
-//    vector<QString> path = g.shortestPath(start, end);
-//    if (!path.empty()) {
-//        cout << "Shortest path from " << start.toStdString() << " to " << end.toStdString() << ": ";
-//        for (size_t i = 0; i < path.size(); ++i) {
-//            cout << path[i].toStdString() ;
-//            if (i < path.size() - 1) {
-//                cout << " -> ";
-//            }
-//        }
-//        cout << endl;
-//    } else {
-//        cout << "No path exists between " << start.toStdString() << " and " << end.toStdString() << endl;
-//    }
-
-
-
-
-
-//    return a.exec();
-//}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//#include <iostream>
-//#include <queue>
-//#include <vector>
-//#include <unordered_map>
-//#include <QString>
-//#include <QColor>
-
-//using namespace std;
-
-//class Graph {
-//public:
-//    struct Edge {
-//        QString start;
-//        QString end;
-//        QString color; // Store color as string
-//        int distance; // Distance between stations
-
-//        Edge(const QString& s, const QString& e, const QString& c, int d) : start(s), end(e), color(c), distance(d) {}
-//    };
-
-//private:
-//    unordered_map<QString, vector<Edge>> adjList;
-
-//public:
-//    void addEdge(const QString& v, const QString& w, const QString& color, int distance) {
-//        adjList[v].push_back(Edge(v, w, color, distance));
-//        adjList[w].push_back(Edge(w, v, color, distance)); // Uncomment this line if the graph is undirected
-//    }
-
-//    vector<QString> shortestPath(const QString& start, const QString& end) {
-//        unordered_map<QString, bool> visited;
-//        unordered_map<QString, QString> parent;
-//        unordered_map<QString, QString> edgeColors; // Store color as string
-//        unordered_map<QString, int> distances;
-//        queue<QString> q;
-
-//        q.push(start);
-//        visited[start] = true;
-//        parent[start] = "";
-//        edgeColors[start] = adjList[start][0].color; // Set color of initial node as specified color
-//        distances[start] = 0; // Set initial distance to 0
-
-//        while (!q.empty()) {
-//            QString current = q.front();
-//            q.pop();
-
-//            if (current == end) {
-//                // Reconstruct path
-//                vector<QString> path;
-//                QString node = end;
-//                while (node != "") {
-//                    path.push_back(node);
-//                    node = parent[node];
-//                }
-//                reverse(path.begin(), path.end());
-//                int distance = 0;
-//                // Print path along with edge colors and distances
-//                for (size_t i = 0; i < path.size() - 1; ++i) {
-//                    QString currentNode = path[i];
-//                    QString nextNode = path[i + 1];
-//                    QString edgeColor = edgeColors[currentNode]; // Get color as string
-//                    distance = distances[nextNode]; // Get distance
-//                    cout << "From " << currentNode.toStdString() << " (Color: " << edgeColor.toStdString() << ")";
-//                    cout << ", Distance = " << distance << ", " <<" , Time = " <<distance*1 << " min , ";
-//                    cout << "to " << nextNode.toStdString() << endl;
-//                }
-
-//                return path;
-//            }
-
-//            for (const auto& edge : adjList[current]) {
-//                if (!visited[edge.end]) {
-//                    visited[edge.end] = true;
-//                    q.push(edge.end);
-//                    parent[edge.end] = current;
-//                    edgeColors[edge.end] = edge.color;
-//                    distances[edge.end] = distances[current] + edge.distance; // Update distance
-//                }
-//            }
-//        }
-
-//        return {}; // If no path exists
-//    }
-//};
-//int main() {
-//    Graph g;
-
-//    // Add edges with colors
-//    g.addEdge("Gholhak", "Mirdamad","red",4);
-//    g.addEdge("Mirdamad", "Shahid Haghani","red",5);
-//    g.addEdge("Shahid Haghani","Shahid Beheshti","red",7);
-//    g.addEdge("Shahid Beheshti","Shahid Mofatteh","red",2);
-//    g.addEdge("Shahid Mofatteh","Haftom-e Tir","red",2);
-//    g.addEdge("Shahid Beheshti", "Merza-ye Shirazi","blue",1);
-//    g.addEdge("Merza-ye Shirazi", "Meydan-e Jahad","blue",2);
-
-//    QString start = "Gholhak";
-//    QString end = "Meydan-e Jahad";
-
-//    vector<QString> path = g.shortestPath(start, end);
-//    if (!path.empty()) {
-//        cout << "Shortest path from " << start.toStdString() << " to " << end.toStdString() << ": ";
-//        for (size_t i = 0; i < path.size(); ++i) {
-//            cout << path[i].toStdString();
-//            if (i < path.size() - 1) {
-//                cout << " -> ";
-//            }
-//        }
-//        cout << endl;
-//    } else {
-//        cout << "No path exists between " << start.toStdString() << " and " << end.toStdString() << endl;
-//    }
-
-//    return 0;
-//}
-
-
-
-
-
-
-
-
 
 
 
@@ -188,24 +6,97 @@
 #include "subwaymanagement.h"
 #include <QApplication>
 
+void Menu(){
 
-
-
-int main(int argc, char *argv[]) {
-    QApplication a(argc, argv);
-    Graph g;
+    Graph g(3267);
 
     // Add edges with colors
-    g.addEdge("Gholhak", "Mirdamad","red",4);
-    g.addEdge("Mirdamad", "Shahid Haghani","red",5);
-    g.addEdge("Shahid Haghani","Shahid Beheshti","red",7);
-    g.addEdge("Shahid Beheshti","Shahid Mofatteh","red",2);
-    g.addEdge("Shahid Mofatteh","Haftom-e Tir","red",2);
-    g.addEdge("Shahid Beheshti", "Merza-ye Shirazi","blue",1);
-    g.addEdge("Merza-ye Shirazi", "Meydan-e Jahad","blue",2);
+    g.addEdge("Tajrish","Gheytariyeh","red",2, 3267);
+    g.addEdge("Gheytariyeh","Gholhak","red",3, 3267);
+    g.addEdge("Gholhak", "Mirdamad","red",4, 3267);
+    g.addEdge("Mirdamad", "Shahid Haghani","red",5, 3267);
+    g.addEdge("Shahid Haghani","Shahid Beheshti","red",7, 3267);
+    g.addEdge("Shahid Beheshti","Shahid Mofatteh","red",2, 3267);
+    g.addEdge("Shahid Mofatteh","Haftom-e Tir","red",2, 3267);
+
+    g.addEdge("Haftom-e Tir","Taleghani","red",2, 3267);
+    g.addEdge("Taleghani","Darvazeh Dowlat","red",1, 3267);
+    g.addEdge("Darvazeh Dowlat ","Panzdah-e Khordad ","red",4, 3267);
+    g.addEdge("Panzdah-e Khordad","Shoush","red",6, 3267);
+    g.addEdge("Shoush","Jonoub Terminal","red",3, 3267);
+    g.addEdge("Jonoub Terminal","Shahr-e Rey","red",9, 3267);
+    g.addEdge("Shahr-e Rey","Kahrizak","red",13, 3267);
+
+    g.addEdge("Gha'em Aghdasiyeh","Aghdasiyeh","blue",4, 3267);
+    g.addEdge("Aghdasiyeh","Shahid Zeynoddin","blue",10, 3267);
+    g.addEdge("Shahid Zeynoddin","Shahid Ghodousi","blue",5, 3267);
+    g.addEdge("Shahid Ghodousi","Sohrevardi","blue",2, 3267);
+    g.addEdge("Sohrevardi","Shahid Beheshti","blue",1, 3267);
+    g.addEdge("Shahid Beheshti","Merza-ye Shirazi","blue",3, 3267);
+    g.addEdge("Merza-ye Shirazi","Meydan-e Jahad","blue",2, 3267);
+    g.addEdge("Meydan-e Jahad","Meydan-e Hazrat-e ValiAsr","blue",1, 3267);
+    g.addEdge("Meydan-e Hazrat-e ValiAsr","Teatr-e Shahr","blue",2, 3267);
+    g.addEdge("Teatr-e Shahr","Moniriyeh","blue",4, 3267);
+    g.addEdge("Moniriyeh","Mahdiyeh","blue",3, 3267);
+    g.addEdge("Mahdiyeh","Rahahan","blue",1, 3267);
+    g.addEdge("Rahahan","Javadiyeh","blue",2, 3267);
+    g.addEdge("Javadiyeh","Zamzam","blue",2, 3267);
+    g.addEdge("Zamzam","Azadegan","blue",8, 3267);
+
+    g.addEdge("Shahid Kolahdouz","Nirou Havaei","yellow",7, 3267);
+    g.addEdge("Nirou Havaei","Nabard","yellow",1, 3267);
+    g.addEdge("Nabard","Pirouzi","yellow",1, 3267);
+    g.addEdge("Pirouzi","Ebn-e Sina","yellow",3, 3267);
+    g.addEdge("Ebn-e Sina","Meydan-e Shohada","yellow",1, 3267);
+    g.addEdge("Meydan-e Shohada","Darvazeh Shemiran","yellow",2, 3267);
+    g.addEdge("Darvazeh Shemiran","Darvazeh Dowlat","yellow",2, 3267);
+    g.addEdge("Darvazeh Dowlat","Ferdowsi","yellow",1, 3267);
+    g.addEdge("Ferdowsi","Teatr-e Shahr","yellow",1, 3267);
+    g.addEdge("Teatr-e Shahr","Meydan-e Enghelab-e Eslami","yellow",3, 3267);
+    g.addEdge("Meydan-e Enghelab-e Eslami","Towhid","yellow",1, 3267);
+    g.addEdge("Towhid","Shademan","yellow",2, 3267);
+    g.addEdge("Shademan","Ostad Mo'in","yellow",4, 3267);
+    g.addEdge("Ostad Mo'in","Meydan-e Azadi","yellow",2, 3267);
+    g.addEdge("Meydan-e Azadi","Eram-e Sabz","yellow",6, 3267);
+    g.addEdge("Eram-e Sabz","Allameh Jafari","yellow",5, 3267);
+    g.addEdge("Allameh Jafari","Kashani","yellow",4, 3267);
+    g.addEdge("Kashani","Chaharbagh","yellow",5, 3267);
+
+    g.addEdge("Haram-e Hazrat-e Abdolazim","Shahid Rezaei","purple",10, 3267);
+    g.addEdge("Shahid Rezaei","Meydan-e Shohada","purple",6, 3267);
+    g.addEdge("Meydan-e Shohada","Emam Hossein","purple",2, 3267);
+    g.addEdge("Emam Hossein","Haftom-e Tir","purple",5, 3267);
+    g.addEdge("Haftom-e Tir","Meydan-e Hazrat-e ValiAsr","purple",2, 3267);
+    g.addEdge("Meydan-e Hazrat-e ValiAsr","Boostan-e laleh","purple",2, 3267);
+    g.addEdge("Boostan-e laleh","Yadegar-e Emam","purple",8, 3267);
+    g.addEdge("Yadegar-e Emam","Kashani","purple",6, 3267);
+    g.addEdge("Kashani","Kouhsar","purple",10, 3267);
+
+
+    Graph busGraph(2250);
+    busGraph.addEdge("Khajeh Abdollah-e Ansari","Gha'em","green",12, 2250);
+    busGraph.addEdge("Gha'em","Pirouzi","green",19, 2250);
+    busGraph.addEdge("Pirouzi","Shahid Rezaei","green",8, 2250);
+    busGraph.addEdge("Shahid Rezaei","Payaneh Javanmard","green",8, 2250);
+
+    busGraph.addEdge("Shahid Sadr","Tajrish","grey",4, 2250);
+    busGraph.addEdge("Tajrish","Mirdamad","grey",8, 2250);
+    busGraph.addEdge("Mirdamad","Meydan-e Hazrat-e ValiAsr","grey",11, 2250);
+    busGraph.addEdge("Meydan-e Hazrat-e ValiAsr","Rahahan","grey",8, 2250);
+    busGraph.addEdge("Rahahan","Shahrak-e Shari'ati","grey",5, 2250);
+
+    busGraph.addEdge("Tehran Pars","Ebn-e Sina","green",10, 2250);
+    busGraph.addEdge("Ebn-e Sina","Emam Hossein","green",4, 2250);
+    busGraph.addEdge("Emam Hossein","Darvazeh Dowlat","green",2, 2250);
+    busGraph.addEdge("Darvazeh Dowlat","Ferdowsi","green",1, 2250);
+    busGraph.addEdge("Ferdowsi","Meydan-e Enghelab-e Eslami","green",3, 2250);
+    busGraph.addEdge("Meydan-e Enghelab-e Eslami","Ostad Mo'in","green",4, 2250);
+    busGraph.addEdge("Ostad Mo'in","Meydan-e Azadi","green",4, 2250);
+    busGraph.addEdge("Meydan-e Azadi","Bimeh","green",3, 2250);
+
 
     QString start = "Mirdamad";
-    QString end = "Meydan-e Jahad";
+    QString end = "Moniriyeh";
 
     vector<QString> path = g.shortestPath(start, end);
     if (!path.empty()) {
@@ -220,6 +111,18 @@ int main(int argc, char *argv[]) {
     } else {
         cout << "No path exists between " << start.toStdString() << " and " << end.toStdString() << endl;
     }
+
+
+
+
+}
+
+
+int main(int argc, char *argv[]) {
+    QApplication a(argc, argv);
+
+
+
 
     return a.exec();
 }

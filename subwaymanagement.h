@@ -46,8 +46,8 @@ public:
         QString end;
         QString color; // Store color as string
         int distance; // Distance between stations
-
-        Edge(const QString& s, const QString& e, const QString& c, int d) : start(s), end(e), color(c), distance(d) {}
+        int cost;
+        Edge(const QString& s, const QString& e, const QString& c, int d,int ct) : start(s), end(e), color(c), distance(d), cost(ct) {}
     };
 
 private:
@@ -55,11 +55,11 @@ private:
     int colorChangeCost; // Cost for changing the color of the metro line
 
 public:
-    Graph() : colorChangeCost(3267) {} // Constructor to initialize the color change cost
-
-    void addEdge(const QString& v, const QString& w, const QString& color, int distance) {
-        adjList[v].push_back(Edge(v, w, color, distance));
-        adjList[w].push_back(Edge(w, v, color, distance)); // Uncomment this line if the graph is undirected
+//    Graph() : colorChangeCost(cost);// Constructor to initialize the color change cost
+    Graph(int cost) : colorChangeCost(cost){}
+    void addEdge(const QString& v, const QString& w, const QString& color, int distance,int ct) {
+        adjList[v].push_back(Edge(v, w, color, distance,ct));
+        adjList[w].push_back(Edge(w, v, color, distance,ct)); // Uncomment this line if the graph is undirected
     }
 
     vector<QString> shortestPath(const QString& start, const QString& end) {
@@ -141,6 +141,77 @@ public:
 
         return {}; // If no path exists
     }
+
+
+
+    vector<QString> shortestPathWithMinimumCost(const QString& start, const QString& end) {
+        priority_queue<pair<int, QString>, vector<pair<int, QString>>, greater<pair<int, QString>>> pq;
+        unordered_map<QString, int> minCost; // Minimum cost to reach each node
+        unordered_map<QString, QString> parent; // Parent node for each node in the shortest path
+
+        pq.push({0, start}); // Start with zero cost to reach start node
+        minCost[start] = 0;
+
+        while (!pq.empty()) {
+            auto [cost, current] = pq.top();
+            pq.pop();
+
+            if (current == end) {
+                // Reconstruct path
+                vector<QString> path;
+                QString node = end;
+                while (node != "") {
+                    path.push_back(node);
+                    node = parent[node];
+                }
+                reverse(path.begin(), path.end());
+
+                // Output the path along with distances and total cost
+                cout << "Path: ";
+                int totalCost = 0;
+                QString prevColor;
+                for (size_t i = 0; i < path.size() - 1; ++i) {
+                    QString currentNode = path[i];
+                    QString nextNode = path[i + 1];
+                    int distance = getDistance(currentNode, nextNode);
+                    totalCost += distance; // Increment total cost with distance
+                    if (adjList[currentNode][0].color != prevColor && i > 0) {
+                        totalCost += colorChangeCost; // Add color change cost if color changes
+                    }
+                    prevColor = adjList[currentNode][0].color;
+                    cout << currentNode.toStdString() << " --(" << distance << " km)-> ";
+                }
+                cout << end.toStdString() << endl;
+                if (path.size() > 1) {
+                    totalCost = colorChangeCost; // Add color change cost for the last edge
+                }
+                cout << "Total Cost: " << totalCost << " Tomans" << endl;
+
+                return path;
+            }
+
+            for (const auto& edge : adjList[current]) {
+                int newCost = cost + edge.distance;
+                if (minCost.find(edge.end) == minCost.end() || newCost < minCost[edge.end]) {
+                    minCost[edge.end] = newCost;
+                    parent[edge.end] = current;
+                    pq.push({newCost, edge.end});
+                }
+            }
+        }
+
+        return {}; // If no path exists
+    }
+
+    int getDistance(const QString& from, const QString& to) {
+        for (const auto& edge : adjList[from]) {
+            if (edge.end == to) {
+                return edge.distance;
+            }
+        }
+        return -1; // If no direct edge found
+    }
+
 };
 
 
